@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
+using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,31 +11,36 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProductsController : ControllerBase
+    public class ProductsController : Controller
     {
-        private readonly StoreContext _context;
-        
-        public ProductsController(StoreContext context)
+
+        private readonly IProductRepository _productRepository;
+
+        public ProductsController(IProductRepository productRepository)
         {
-            _context = context;            
+            _productRepository = productRepository;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetProducts()
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Product>))]
+        public IActionResult GetProducts()
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            return await _context.Products.ToListAsync();
+            return Ok(_productRepository.GetProducts());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Product>))]
+        public IActionResult GetProduct(int id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+            if (!_productRepository.ProductExists(id))
+                return NotFound();
 
-            return await _context.Products.Where(p => p.Id == id).FirstOrDefaultAsync();
+            return Ok(_productRepository.GetProduct(id));
         }
     }
 }
