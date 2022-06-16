@@ -1,0 +1,1 @@
+export { HOME, ABOUT, CATALOG, CONTACT } from "./constants/constants";

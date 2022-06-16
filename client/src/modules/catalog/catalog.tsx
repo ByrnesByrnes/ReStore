@@ -1,16 +1,18 @@
 import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react'
-import { ProductItem } from "../index";
-import { Product } from '../product-item/interface/product';
+import { ProductItem } from "../ui/index";
+import { Product } from '../ui/product-item/interface/product';
+import axios from "axios";
 
 export default function Catalog() {
     const [products, setProducts] = useState<Product[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/products")
-            .then((response) => response.json())
-            .then((data) => setProducts(data.result))
-            .catch((error) => console.error(error));
+        axios.get("http://localhost:5000/api/products")
+            .then((response) => setProducts(response.data.result))            
+            .catch((error) => console.error(error))
+            .finally(() => setLoading(false));
     }, [])
 
     return (
