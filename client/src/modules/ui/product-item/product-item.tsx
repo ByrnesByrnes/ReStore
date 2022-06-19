@@ -1,11 +1,11 @@
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from '@mui/material'
-import React from 'react'
-import { Product } from './interface/product'
+import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
+import React from "react";
+import { Product } from "./interface/product";
 import { Link } from "react-router-dom";
-import { CATALOG } from '../../routes';
+import { CATALOG } from "../../routes";
 
 interface Props {
-    product: Product
+    product: Product;
 }
 
 const ProductItem = ({ product }: Props) => {
@@ -33,12 +33,12 @@ const ProductItem = ({ product }: Props) => {
                     {/* <Typography variant="body2" color="text.secondary">{product.description}</Typography> */}
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Add to Cart</Button>                    
+                    <Button size="small">Add to Cart</Button>
                     <Button size="small" component={Link} to={`${CATALOG}/${product.id}`}>View</Button>
                 </CardActions>
             </Box>
         </Card>
-    )
-}
+    );
+};
 
 export default ProductItem;

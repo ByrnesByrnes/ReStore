@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { Alert, AlertTitle, Button, ButtonGroup, Container, List, ListItem, ListItemText, Typography } from '@mui/material'
-import { agent } from '../../routes'
+import React, { useState } from "react"
+import { Alert, AlertTitle, Button, ButtonGroup, Container, List, ListItem, ListItemText, Typography } from "@mui/material"
+import { agent } from "../../routes"
 
 export default function Error() {
   const [validationErrors, setValidationErrors] = useState<string[]>([]);

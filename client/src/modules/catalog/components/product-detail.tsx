@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
-import { Product } from '../../ui/product-item/interface/product';
-import { useParams } from 'react-router-dom';
-import { agent } from '../../routes';
+import React, { useEffect, useState } from "react";
+import { Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
+import { Product } from "../../ui/product-item/interface/product";
+import { useParams } from "react-router-dom";
+import { agent } from "../../routes";
 import { MainLoader, NotFound } from "../../ui";
 
 export default function ProductDetail() {

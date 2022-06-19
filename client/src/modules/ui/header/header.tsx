@@ -1,9 +1,9 @@
-import { ShoppingCart } from '@mui/icons-material';
-import { AppBar, Badge, Box, IconButton, List, ListItem, Switch, Toolbar, Typography } from '@mui/material';
-import { CSSProperties } from '@mui/styled-engine';
-import { NavLink } from 'react-router-dom';
-import { ABOUT, CATALOG, CONTACT, HOME } from '../../routes';
-import { LOGIN, REGISTER } from '../../routes/constants/constants';
+import { ShoppingCart } from "@mui/icons-material";
+import { AppBar, Badge, Box, IconButton, List, ListItem, Switch, Toolbar, Typography } from "@mui/material";
+import { CSSProperties } from "@mui/styled-engine";
+import { NavLink } from "react-router-dom";
+import { ABOUT, CATALOG, CONTACT, HOME } from "../../routes";
+import { LOGIN, REGISTER } from "../../routes/constants/constants";
 
 interface Props {
   mode: boolean;
