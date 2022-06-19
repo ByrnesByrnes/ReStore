@@ -4,3 +4,5 @@ export const ABOUT = "/about";
 export const CONTACT = "/contact";
 export const LOGIN = "/login";
 export const REGISTER = "/register";
+export const ERROR = "/error-page";
+export const SERVER_ERROR = "/server-error";

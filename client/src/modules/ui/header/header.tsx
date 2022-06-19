@@ -1,5 +1,5 @@
 import { ShoppingCart } from '@mui/icons-material';
-import { AppBar, Badge, Box, IconButton, List, ListItem, Switch, Toolbar, Typography } from '@mui/material'
+import { AppBar, Badge, Box, IconButton, List, ListItem, Switch, Toolbar, Typography } from '@mui/material';
 import { CSSProperties } from '@mui/styled-engine';
 import { NavLink } from 'react-router-dom';
 import { ABOUT, CATALOG, CONTACT, HOME } from '../../routes';
@@ -7,7 +7,7 @@ import { LOGIN, REGISTER } from '../../routes/constants/constants';
 
 interface Props {
   mode: boolean;
-  onThemeChange: () => void
+  onThemeChange: () => void;
 }
 
 export default function Header({ onThemeChange, mode }: Props) {
@@ -21,7 +21,7 @@ export default function Header({ onThemeChange, mode }: Props) {
     "&.active": {
       color: "text.secondary"
     }
-  } as CSSProperties
+  } as CSSProperties;
 
 
   return (
@@ -55,5 +55,5 @@ export default function Header({ onThemeChange, mode }: Props) {
         </Box>
       </Toolbar>
     </AppBar>
-  )
+  );
 }

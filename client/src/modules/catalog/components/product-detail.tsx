@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react';
+import { Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
 import { Product } from '../../ui/product-item/interface/product';
 import { useParams } from 'react-router-dom';
-import axios from "axios";
-import { LocalDining } from '@mui/icons-material';
+import { agent } from '../../routes';
+import { MainLoader, NotFound } from "../../ui";
 
 export default function ProductDetail() {
   const [product, setProduct] = useState<Product | null>(null);
@@ -12,23 +12,22 @@ export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/products/${id}`)
-      .then(response => setProduct(response.data.result))
-      .catch(error => error)
+    agent.Catalog.details(Number(id))
+      .then(product => setProduct(product.result))
+      .catch(error => console.error(error))
       .finally(() => setLoading(false));
-  }, [])
+  }, []);
 
-  if (loading) return <h3>Loading...</h3>
+  if (loading) return <MainLoader />;
 
-  if (!product) return <h3>Product not found</h3>
+  if (!product) return <NotFound />;
 
   return (
     <Grid container spacing={6} sx={{ mt: 5 }}>
       <Grid item xs={6}>
         <img src={product.pictureUrl} alt={product.name} style={{ width: "100%" }} />
       </Grid>
-      <Grid xs={6}>
+      <Grid item xs={6}>
         <Typography variant="h3">{product.name}</Typography>
         <Divider sx={{ mb: 2 }} />
         <Typography variant="h4" color="secondary">${product.price / 100}</Typography>
@@ -39,22 +38,18 @@ export default function ProductDetail() {
                 <TableCell>Name</TableCell>
                 <TableCell>{product.name}</TableCell>
               </TableRow>
-
               <TableRow>
                 <TableCell>Description</TableCell>
                 <TableCell>{product.description}</TableCell>
               </TableRow>
-
               <TableRow>
                 <TableCell>Type</TableCell>
                 <TableCell>{product.type}</TableCell>
               </TableRow>
-
               <TableRow>
                 <TableCell>Brand</TableCell>
                 <TableCell>{product.brand}</TableCell>
               </TableRow>
-
               <TableRow>
                 <TableCell>Quantity in stock</TableCell>
                 <TableCell>{product.quantityInStock}</TableCell>
@@ -64,5 +59,5 @@ export default function ProductDetail() {
         </TableContainer>
       </Grid>
     </Grid>
-  )
+  );
 }

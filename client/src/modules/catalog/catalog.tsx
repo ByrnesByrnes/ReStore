@@ -1,19 +1,22 @@
-import { Grid } from '@mui/material';
-import React, { useEffect, useState } from 'react'
-import { ProductItem } from "../ui/index";
-import { Product } from '../ui/product-item/interface/product';
-import axios from "axios";
+import { Grid } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { agent } from "../routes";
+import { MainLoader, ProductItem } from "../ui";
+import { Product } from "../ui/product-item/interface/product";
+
 
 export default function Catalog() {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/api/products")
-            .then((response) => setProducts(response.data.result))            
-            .catch((error) => console.error(error))
+        agent.Catalog.list()
+            .then(products => setProducts(products.result))
+            .catch(error => console.error(error))
             .finally(() => setLoading(false));
-    }, [])
+    }, []);
+
+    if (loading) return <MainLoader />;
 
     return (
         <Grid container spacing={2} justifyContent="center">
@@ -23,5 +26,5 @@ export default function Catalog() {
                 </Grid>
             ))}
         </Grid>
-    )
+    );
 }
