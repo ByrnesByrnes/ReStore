@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { agent } from "../routes";
 import { MainLoader, ProductItem } from "../ui";
-import { Product } from "../ui/product-item/interface/product";
+import { Product } from "../ui/product-item/interfaces/product";
 
 
 export default function Catalog() {
@@ -11,7 +11,7 @@ export default function Catalog() {
 
     useEffect(() => {
         agent.Catalog.list()
-            .then(products => setProducts(products.result))
+            .then(products => setProducts(products.result.$values))
             .catch(error => console.error(error))
             .finally(() => setLoading(false));
     }, []);

@@ -1,9 +1,9 @@
 import { ShoppingCart } from "@mui/icons-material";
 import { AppBar, Badge, Box, IconButton, List, ListItem, Switch, Toolbar, Typography } from "@mui/material";
 import { CSSProperties } from "@mui/styled-engine";
-import { NavLink } from "react-router-dom";
-import { ABOUT, CATALOG, CONTACT, HOME } from "../../routes";
-import { LOGIN, REGISTER } from "../../routes/constants/constants";
+import { Link, NavLink } from "react-router-dom";
+import { ABOUT, CATALOG, CONTACT, HOME, BASKET, LOGIN, REGISTER } from "../../routes";
+import { useStoreContext } from "../../../context/store-context";
 
 interface Props {
   mode: boolean;
@@ -11,6 +11,7 @@ interface Props {
 }
 
 export default function Header({ onThemeChange, mode }: Props) {
+  const { basket } = useStoreContext();
 
   const navigationStyles = {
     color: "inherit",
@@ -43,8 +44,8 @@ export default function Header({ onThemeChange, mode }: Props) {
           </List>
         </Box>
         <Box sx={{ display: "flex", alignItem: "center" }}>
-          <IconButton size="large" sx={{ color: "inherit" }}>
-            <Badge badgeContent={4} color="secondary">
+          <IconButton size="large" sx={{ color: "inherit" }} component={Link} to={BASKET}>
+            <Badge badgeContent={basket?.length} color="secondary">
               <ShoppingCart />
             </Badge>
           </IconButton>

@@ -6,3 +6,5 @@ export const LOGIN = "/login";
 export const REGISTER = "/register";
 export const ERROR = "/error-page";
 export const SERVER_ERROR = "/server-error";
+export const BASKET = "/basket";
+export const CHECKOUT = "/checkout";

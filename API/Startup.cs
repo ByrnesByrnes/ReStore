@@ -1,3 +1,5 @@
+using System;
+using System.Text.Json.Serialization;
 using API.Data;
 using API.Interfaces;
 using API.Middleware;
@@ -26,7 +28,10 @@ namespace API
         {
 
             services.AddControllers();
+            services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
@@ -54,7 +59,7 @@ namespace API
             app.UseRouting();
             app.UseCors(options =>
             {
-                options.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+                options.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:3000");
             });
 
             app.UseAuthorization();

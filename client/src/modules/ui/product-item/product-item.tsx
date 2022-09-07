@@ -1,14 +1,25 @@
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
-import React from "react";
-import { Product } from "./interface/product";
+import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, CircularProgress, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { Product } from "./interfaces/product";
 import { Link } from "react-router-dom";
-import { CATALOG } from "../../routes";
+import { agent, CATALOG } from "../../routes";
+import { useStoreContext } from "../../../context/store-context";
 
 interface Props {
     product: Product;
 }
 
 const ProductItem = ({ product }: Props) => {
+    const [loading, setLoading] = useState<boolean>(false);
+    const { setBasket } = useStoreContext();
+
+    const handleAddItem = (productId: number) => {
+        setLoading(true);
+        agent.Basket.addItem(productId)
+            .then((basket) => setBasket(basket.items.$values))
+            .catch(error => console.error(error))
+            .finally(() => setLoading(false));
+    };
 
     return (
         <Card sx={{ borderRadius: "8px" }} variant="outlined">
@@ -33,7 +44,11 @@ const ProductItem = ({ product }: Props) => {
                     {/* <Typography variant="body2" color="text.secondary">{product.description}</Typography> */}
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Add to Cart</Button>
+                    {/* update this loader  */}
+                    {loading ?
+                        <CircularProgress /> :
+                        <Button size="small" onClick={() => handleAddItem(product.id)}>Add to Cart</Button>
+                    }
                     <Button size="small" component={Link} to={`${CATALOG}/${product.id}`}>View</Button>
                 </CardActions>
             </Box>
